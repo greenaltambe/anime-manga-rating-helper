@@ -1,0 +1,16 @@
+{
+  "name": "Anime/Manga Rating Calculator",
+  "short_name": "RatingCalc",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1e1e2e",
+  "theme_color": "#4cafef",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

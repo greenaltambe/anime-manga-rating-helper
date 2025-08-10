@@ -1,3 +1,10 @@
+if ("serviceWorker" in navigator) {
+	navigator.serviceWorker
+		.register("service-worker.js")
+		.then(() => console.log("Service Worker Registered"))
+		.catch((err) => console.error("SW registration failed:", err));
+}
+
 // ===== Cached DOM elements =====
 const typeSelect = document.getElementById("type-select");
 const calculateBtn = document.getElementById("calculate-btn");
