@@ -52,8 +52,30 @@ const renderPoints = (pointsArray) => {
 				<input type="checkbox" class="${CLASS_CHECKBOX}" id="${label}" checked>
 				<label for="${label}" class="rating-point-label">${label}</label>
 			</div>
-			<input type="number" class="${CLASS_SCORE}" value="${DEFAULT_SCORE}" min="0" max="10" step="0.1">
-			<input type="number" class="${CLASS_WEIGHT}" value="${weight}" min="0" max="10" step="0.1">
+
+			<!-- Rating dropdown -->
+			<select class="${CLASS_SCORE}">
+				${Array.from({ length: 21 }, (_, i) => (i * 0.5).toFixed(1))
+					.map(
+						(val) =>
+							`<option value="${val}" ${
+								val == DEFAULT_SCORE ? "selected" : ""
+							}>${val}</option>`
+					)
+					.join("")}
+			</select>
+
+			<!-- Weight dropdown -->
+			<select class="${CLASS_WEIGHT}">
+				${Array.from({ length: 21 }, (_, i) => (i * 0.5).toFixed(1))
+					.map(
+						(val) =>
+							`<option value="${val}" ${
+								val == weight ? "selected" : ""
+							}>${val}</option>`
+					)
+					.join("")}
+			</select>
 		</div>
 	`
 		)
