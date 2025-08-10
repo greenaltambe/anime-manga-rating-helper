@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Rating Helper</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1>Anime/Manga Rating Calculator</h1>
+			<div class="body">
+				<div class="type-select-container">
+					<label for="type-select">Select Type:</label>
+					<select id="type-select">
+						<option value="anime">Anime</option>
+						<option value="manga">Manga</option>
+					</select>
+				</div>
+				<div class="rating-points-container">
+					<div class="header-container">
+						<p>Rating Point</p>
+						<p>Rating (out of 10)</p>
+						<p>Weight</p>
+					</div>
+					<div id="points-container">
+						<div class="rating-point">
+							<div class="checkbox-container">
+								<input
+									type="checkbox"
+									name="story"
+									value="story"
+									id="story"
+									checked
+								/>
+								<label for="story">Story</label>
+							</div>
+							<input
+								type="number"
+								name="story-point"
+								value="0"
+								id="story-point"
+								min="0"
+								max="10"
+								step="0.1"
+							/>
+							<input
+								type="number"
+								name="weight"
+								value="3"
+								id="story-weight"
+								min="1"
+								max="10"
+								step="1"
+							/>
+						</div>
+					</div>
+					<div class="button-container">
+						<button id="calculate-btn">Calculate Rating</button>
+					</div>
+					<div class="result-container">
+						<p id="result"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="script.js"></script>
+	</body>
+</html>

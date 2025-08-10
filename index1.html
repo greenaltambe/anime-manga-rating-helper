@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Anime/Manga Rating Calculator</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				max-width: 500px;
+				margin: 2rem auto;
+				padding: 1rem;
+				background: #f8f9fa;
+			}
+			h1 {
+				text-align: center;
+			}
+			.rating-point {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				margin: 0.5rem 0;
+			}
+			input[type="number"] {
+				width: 50px;
+			}
+			label {
+				flex: 1;
+			}
+			button {
+				width: 100%;
+				padding: 0.7rem;
+				font-size: 1.1rem;
+				margin-top: 1rem;
+			}
+			#result {
+				margin-top: 1rem;
+				font-weight: bold;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Anime/Manga Rating Calculator</h1>
+
+		<label for="type-select">Select Type:</label>
+		<select id="type-select">
+			<option value="anime">Anime</option>
+			<option value="manga">Manga</option>
+		</select>
+
+		<div id="rating-points"></div>
+
+		<button id="calculate-btn">Calculate Rating</button>
+
+		<div id="result"></div>
+
+		<script>
+			const animePoints = [
+				{ label: "Story", weight: 3 },
+				{ label: "Characters", weight: 2 },
+				{ label: "Animation Quality", weight: 2 },
+				{ label: "Sound / Music / Voice Acting", weight: 1.5 },
+				{ label: "Enjoyment", weight: 1.5 },
+				{ label: "Originality", weight: 1 },
+				{ label: "Themes", weight: 1 },
+				{ label: "Rewatchability", weight: 1 },
+			];
+
+			const mangaPoints = [
+				{ label: "Story", weight: 3 },
+				{ label: "Characters", weight: 2 },
+				{ label: "Art Quality", weight: 2 },
+				// No sound/music for manga
+				{ label: "Enjoyment", weight: 1.5 },
+				{ label: "Originality", weight: 1 },
+				{ label: "Themes", weight: 1 },
+				{ label: "Re-readability", weight: 1 },
+			];
+
+			const typeSelect = document.getElementById("type-select");
+			const ratingPointsDiv = document.getElementById("rating-points");
+			const calculateBtn = document.getElementById("calculate-btn");
+			const resultDiv = document.getElementById("result");
+
+			function createRatingInputs(points) {
+				ratingPointsDiv.innerHTML = "";
+				points.forEach((point, i) => {
+					const div = document.createElement("div");
+					div.className = "rating-point";
+
+					const checkbox = document.createElement("input");
+					checkbox.type = "checkbox";
+					checkbox.checked = true;
+					checkbox.id = `include-${i}`;
+
+					const label = document.createElement("label");
+					label.htmlFor = `include-${i}`;
+					label.textContent = point.label;
+
+					const scoreInput = document.createElement("input");
+					scoreInput.type = "number";
+					scoreInput.min = 0;
+					scoreInput.max = 10;
+					scoreInput.step = 0.1;
+					scoreInput.value = 7; // default score
+					scoreInput.id = `score-${i}`;
+
+					const weightInput = document.createElement("input");
+					weightInput.type = "number";
+					weightInput.min = 0;
+					weightInput.step = 0.1;
+					weightInput.value = point.weight;
+					weightInput.id = `weight-${i}`;
+
+					div.appendChild(checkbox);
+					div.appendChild(label);
+					div.appendChild(scoreInput);
+					div.appendChild(weightInput);
+
+					ratingPointsDiv.appendChild(div);
+				});
+			}
+
+			function calculateWeightedAverage(points) {
+				let totalWeight = 0;
+				let weightedSum = 0;
+				points.forEach((point, i) => {
+					const include = document.getElementById(
+						`include-${i}`
+					).checked;
+					if (!include) return;
+					const score = parseFloat(
+						document.getElementById(`score-${i}`).value
+					);
+					const weight = parseFloat(
+						document.getElementById(`weight-${i}`).value
+					);
+					if (isNaN(score) || score < 0 || score > 10) {
+						alert(
+							`Invalid score for "${point.label}". Please enter 0–10.`
+						);
+						throw new Error("Invalid score");
+					}
+					if (isNaN(weight) || weight < 0) {
+						alert(
+							`Invalid weight for "${point.label}". Please enter >= 0.`
+						);
+						throw new Error("Invalid weight");
+					}
+					totalWeight += weight;
+					weightedSum += score * weight;
+				});
+				if (totalWeight === 0) return 0;
+				return weightedSum / totalWeight;
+			}
+
+			function updatePoints() {
+				const selectedType = typeSelect.value;
+				if (selectedType === "anime") {
+					createRatingInputs(animePoints);
+				} else {
+					createRatingInputs(mangaPoints);
+				}
+				resultDiv.textContent = "";
+			}
+
+			typeSelect.addEventListener("change", updatePoints);
+
+			calculateBtn.addEventListener("click", () => {
+				try {
+					const points =
+						typeSelect.value === "anime"
+							? animePoints
+							: mangaPoints;
+					const average = calculateWeightedAverage(points);
+					resultDiv.textContent = `Weighted Average Rating: ${average.toFixed(
+						2
+					)} / 10`;
+				} catch (e) {
+					// Error handled in calculateWeightedAverage via alerts
+				}
+			});
+
+			// Initialize default view
+			updatePoints();
+		</script>
+	</body>
+</html>
+/home/greenaltambe/Projects/anime-manga-rating-helper/index.html
