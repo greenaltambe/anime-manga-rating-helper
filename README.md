@@ -2,6 +2,8 @@
 
 This is a simple, customizable web application to help you calculate a weighted average score for anime and manga. It allows you to rate different aspects of a series—such as **Story**, **Characters**, and **Animation Quality**—and assign a custom weight to each to get a final, objective score.
 
+**Try here:** [Anime/Manga Rating Helper Live Demo](https://greenaltambe.github.io/anime-manga-rating-helper/)
+
 ---
 
 ### Features
