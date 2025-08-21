@@ -1,12 +1,11 @@
-const CACHE_NAME = "rating-calc-cache-v1";
+const CACHE_NAME = "rating-calc-cache-v2";
 const FILES_TO_CACHE = [
 	"./",
 	"./index.html",
 	"./styles.css",
 	"./script.js",
 	"./manifest.json",
-	"./icon-192.png",
-	"./icon-512.png",
+	"./icon.png",
 ];
 
 self.addEventListener("install", (event) => {
